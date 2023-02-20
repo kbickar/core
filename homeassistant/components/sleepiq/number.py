@@ -12,7 +12,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import ACTUATOR, DOMAIN, ENTITY_TYPES, FIRMNESS, ICON_OCCUPIED
+from .const import ACTUATOR, DOMAIN, ENTITY_TYPES, FAVORITE, FIRMNESS, ICON_OCCUPIED
 from .coordinator import SleepIQData, SleepIQDataUpdateCoordinator
 from .entity import SleepIQBedEntity
 
@@ -36,6 +36,10 @@ class SleepIQNumberEntityDescription(
 
 async def _async_set_firmness(sleeper: SleepIQSleeper, firmness: int) -> None:
     await sleeper.set_sleepnumber(firmness)
+
+
+async def _async_set_favorite(sleeper: SleepIQSleeper, firmness: int) -> None:
+    await sleeper.set_favsleepnumber(firmness)
 
 
 async def _async_set_actuator_position(
@@ -93,6 +97,18 @@ NUMBER_DESCRIPTIONS: dict[str, SleepIQNumberEntityDescription] = {
         set_value_fn=_async_set_actuator_position,
         get_name_fn=_get_actuator_name,
         get_unique_id_fn=_get_actuator_unique_id,
+    ),
+    FAVORITE: SleepIQNumberEntityDescription(
+        key=FAVORITE,
+        native_min_value=5,
+        native_max_value=100,
+        native_step=5,
+        name=ENTITY_TYPES[FAVORITE],
+        icon=ICON_OCCUPIED,
+        value_fn=lambda sleeper: cast(float, sleeper.fav_sleep_number),
+        set_value_fn=_async_set_favorite,
+        get_name_fn=_get_sleeper_name,
+        get_unique_id_fn=_get_sleeper_unique_id,
     ),
 }
 

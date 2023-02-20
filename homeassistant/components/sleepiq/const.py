@@ -6,6 +6,7 @@ DOMAIN = "sleepiq"
 ACTUATOR = "actuator"
 BED = "bed"
 FIRMNESS = "firmness"
+FAVORITE = "favorite"
 ICON_EMPTY = "mdi:bed-empty"
 ICON_OCCUPIED = "mdi:bed"
 IS_IN_BED = "is_in_bed"
@@ -17,6 +18,7 @@ ENTITY_TYPES = {
     PRESSURE: "Pressure",
     IS_IN_BED: "Is In Bed",
     SLEEP_NUMBER: "SleepNumber",
+    FAVORITE: "Favorite SleepNumber",
 }
 
 LEFT = "left"
